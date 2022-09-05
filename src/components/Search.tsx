@@ -1,37 +1,51 @@
+import { DarkMode, LightMode } from "@chakra-ui/react";
 import { useState } from "react";
-import { OptionsOrGroups, GroupBase } from "react-select";
-import { AsyncPaginate, Response } from "react-select-async-paginate";
+import { AsyncPaginate } from "react-select-async-paginate";
 import { geoApiOptions, GEO_API_URL } from "../utils/api";
 
 interface SearchProps {
   onSearchChange: Function;
 }
 
-const Search = ({onSearchChange}: SearchProps) => {
+const Search = ({ onSearchChange }: SearchProps) => {
   const [search, setSearch] = useState(null);
 
-  const handleOnChange = (searchData: null) => {
+  const handleOnChange = (searchData: any) => {
     setSearch(searchData);
     onSearchChange(searchData);
-  }
+  };
 
-  const loadOptions = (inputValue: null) => {
-    fetch(`${GEO_API_URL}/cities?minPopulation=1000000`, geoApiOptions)
+  const loadOptions = (inputValue: any) => {
+    return fetch(
+      `${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${inputValue}`,
+      geoApiOptions
+    )
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        return {
+          options: response.data.map((city: any) => {
+            return {
+              value: `${city.latitude} ${city.longitude}`,
+              label: `${city.name}, ${city.countryCode}`,
+            };
+          }),
+        };
+      })
       .catch((err) => console.error(err));
-  }
+  };
 
   return (
-    <AsyncPaginate
-      placeholder="Search for city"
-      debounceTimeout={600}
-      value={search}
-      onChange={handleOnChange}
-      //@ts-ignore
-      loadOptions={loadOptions}
-    />
+
+      <AsyncPaginate
+        placeholder="Search for city"
+        debounceTimeout={600}
+        value={search}
+        onChange={handleOnChange}
+        //@ts-ignore
+        loadOptions={loadOptions}
+      />
+
   );
-}
+};
 
 export default Search;
