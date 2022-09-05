@@ -1,5 +1,13 @@
 import * as React from "react";
-import { ChakraProvider, Box, Stack, theme, Heading, Button, LightMode} from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Box,
+  Stack,
+  theme,
+  Heading,
+  Button,
+  LightMode,
+} from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 import Search from "./components/Search";
 import InfoDisplay from "./components/InfoDisplay";
@@ -17,15 +25,14 @@ export const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl" backgroundColor={"gray.800"}>
-        <Stack minH="100vh" paddingTop={50} gap={5}>
+        <Stack minH="100vh" paddingTop={50} gap={5} alignItems="center">
           {
             // Here
           }
 
           <Heading color="white">Weather App</Heading>
-          <Stack paddingLeft={50} paddingRight={50}>
-            <Search onSearchChange={handleOnSearchChange} />
-          </Stack>
+
+          <Search onSearchChange={handleOnSearchChange} />
           <InfoDisplay />
         </Stack>
       </Box>
