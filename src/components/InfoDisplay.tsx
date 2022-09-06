@@ -6,7 +6,7 @@ interface InfoDisplayProps {
   unit: string;
 }
 const InfoDisplay = ({ data, unit }: InfoDisplayProps) => {
-  console.log(`${data.weather[0].icon}.png`);
+
   return (
     <Box minW="25vw" maxW="100vw" backgroundColor="blue.900" borderRadius={25}>
       <HStack
@@ -24,7 +24,7 @@ const InfoDisplay = ({ data, unit }: InfoDisplayProps) => {
           </Text>
         </VStack>
         <Image
-          src={`${data.weather[0].icon}.png`}
+          src={process.env.PUBLIC_URL+`/icons/${data.weather[0].icon}.png`}
           color="white"
           boxSize={75}
           fallbackSrc={logo}
