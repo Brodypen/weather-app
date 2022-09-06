@@ -8,7 +8,6 @@ import {
   Heading,
   Button,
 } from "@chakra-ui/react";
-import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 import Search from "./components/Search";
 import InfoDisplay from "./components/InfoDisplay";
 import { WEATHER_API_KEY, WEATHER_API_URL } from "./utils/api";
@@ -39,8 +38,8 @@ export const App = () => {
     setCurrentWeather(null);
   };
 
-  console.log(currentWeather);
-  console.log(unit);
+  // console.log(currentWeather);
+  // console.log(unit);
 
   return (
     <ChakraProvider theme={theme}>

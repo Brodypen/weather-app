@@ -1,15 +1,12 @@
-import { Box, Heading, Text, Image, VStack, HStack } from "@chakra-ui/react";
+import { Box, Text, Image, VStack, HStack } from "@chakra-ui/react";
 import React from "react";
-import { TiWeatherCloudy, TiWeatherSunny } from "react-icons/ti";
-
+import logo from "./01d.png";
 interface InfoDisplayProps {
   data: any;
   unit: string;
 }
 const InfoDisplay = ({ data, unit }: InfoDisplayProps) => {
-  const IconFinder = (description: string) => {
-    return TiWeatherSunny;
-  };
+  console.log(`${data.weather[0].icon}.png`);
   return (
     <Box minW="25vw" maxW="100vw" backgroundColor="blue.900" borderRadius={25}>
       <HStack
@@ -27,10 +24,10 @@ const InfoDisplay = ({ data, unit }: InfoDisplayProps) => {
           </Text>
         </VStack>
         <Image
-          src={`/icons/${data.weather[0].icon}.png`}
+          src={`${data.weather[0].icon}.png`}
           color="white"
           boxSize={75}
-          fallbackSrc="/icons/01d.png"
+          fallbackSrc={logo}
         />
       </HStack>
       <HStack justifyContent="space-between" padding={5}>
@@ -43,7 +40,6 @@ const InfoDisplay = ({ data, unit }: InfoDisplayProps) => {
               Feels like:
             </Text>
             <Text margin={0} color="white" id="Temp" fontSize="md">
-
               {Math.round(data.main.feels_like)}°
               {unit === "imperial" ? "F" : "C"}
             </Text>

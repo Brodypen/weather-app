@@ -1,4 +1,3 @@
-import { DarkMode, LightMode } from "@chakra-ui/react";
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { geoApiOptions, GEO_API_URL } from "../utils/api";
