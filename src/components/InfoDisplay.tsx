@@ -1,10 +1,15 @@
-import { Box, Heading, Text, Icon, VStack, HStack } from '@chakra-ui/react'
-import React from 'react'
-import {TiWeatherCloudy, TiWeatherSunny} from 'react-icons/ti'
-const InfoDisplay = () => {
+import { Box, Heading, Text, Image, VStack, HStack } from "@chakra-ui/react";
+import React from "react";
+import { TiWeatherCloudy, TiWeatherSunny } from "react-icons/ti";
+
+interface InfoDisplayProps {
+  data: any;
+  unit: string;
+}
+const InfoDisplay = ({ data, unit }: InfoDisplayProps) => {
   const IconFinder = (description: string) => {
     return TiWeatherSunny;
-  }
+  };
   return (
     <Box minW="25vw" maxW="100vw" backgroundColor="blue.900" borderRadius={25}>
       <HStack
@@ -15,17 +20,22 @@ const InfoDisplay = () => {
       >
         <VStack alignItems="flex-start" margin={0}>
           <Text color="white" id="name" fontSize="3xl">
-            Houston
+            {data.city}
           </Text>
           <Text color="white" id="description" fontSize="xl">
-            Sunny
+            {data.weather[0].description}
           </Text>
         </VStack>
-        <Icon as={IconFinder("hey")} color="white" boxSize={75} />
+        <Image
+          src={`/icons/${data.weather[0].icon}.png`}
+          color="white"
+          boxSize={75}
+          fallbackSrc="/icons/01d.png"
+        />
       </HStack>
       <HStack justifyContent="space-between" padding={5}>
         <Text color="white" id="Temp" fontSize="8xl">
-          13°C
+          {Math.round(data.main.temp)}°{unit === "imperial" ? "F" : "C"}
         </Text>
         <VStack>
           <HStack>
@@ -33,7 +43,9 @@ const InfoDisplay = () => {
               Feels like:
             </Text>
             <Text margin={0} color="white" id="Temp" fontSize="md">
-              14*C
+
+              {Math.round(data.main.feels_like)}°
+              {unit === "imperial" ? "F" : "C"}
             </Text>
           </HStack>
           <HStack>
@@ -41,7 +53,11 @@ const InfoDisplay = () => {
               Wind:
             </Text>
             <Text margin={0} color="white" id="Temp" fontSize="md">
-              14*C
+              {
+                //m/s or mi/hr}
+              }
+              {data.wind.speed}
+              {unit === "imperial" ? " mi/hr" : " m/s"}
             </Text>
           </HStack>
           <HStack>
@@ -49,7 +65,7 @@ const InfoDisplay = () => {
               Humidity:
             </Text>
             <Text margin={0} color="white" id="Temp" fontSize="md">
-              14*C
+              {data.main.humidity} %
             </Text>
           </HStack>
           <HStack>
@@ -57,13 +73,13 @@ const InfoDisplay = () => {
               Pressure
             </Text>
             <Text margin={0} color="white" id="Temp" fontSize="md">
-              14*C
+              {data.main.pressure} hPa
             </Text>
           </HStack>
         </VStack>
       </HStack>
     </Box>
   );
-}
+};
 
-export default InfoDisplay
+export default InfoDisplay;
